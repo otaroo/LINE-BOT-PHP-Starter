@@ -1,5 +1,5 @@
 <?php
-$access_token = 'x';
+$access_token = 'Yfp4E1/cS+OUoQOVVHc2/uLctihQ5gHv9o5rPRMLp0drPl0ObyZwI8uYQjm/VozeGloTmKsOnpdNdwmUrJTw91JQX3LJG3bVSpRFe/q++N0p0ZuTsLoksNRK6TBkmR4+KIgNplG7sib3btmH6nYuowdB04t89/1O/w1cDnyilFU=';
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -11,15 +11,23 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+			$msg ="";
 			// Get text sent
 			$text = $event['message']['text'];
+			if($text == 'เรท'){
+				$msg = "1500/1, 2500/2"
+			}else if($text == 'พิกัด'){
+				$msg = "ลาดกระบัง"
+			}else{
+				$msg =$text;
+			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $text
+				'text' => $msg
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
