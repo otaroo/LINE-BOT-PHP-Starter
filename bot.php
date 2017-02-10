@@ -16,10 +16,10 @@ if (!is_null($events['events'])) {
 			$text = $event['message']['text'];
 			if($text == 'เรท'){
 				$msg = "1500/1, 2500/2"
-			}else if($text == 'พิกัด'){
+			}elseif($text == 'พิกัด'){
 				$msg = "ลาดกระบัง"
 			}else{
-				$msg =$text;
+				$msg = $text;
 			}
 			// Get replyToken
 			$replyToken = $event['replyToken'];
