@@ -11,23 +11,17 @@ if (!is_null($events['events'])) {
 	foreach ($events['events'] as $event) {
 		// Reply only when message sent is in 'text' format
 		if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-			$msg ="";
+			
 			// Get text sent
 			$text = $event['message']['text'];
-			if($text == 'เรท'){
-				$msg = "1500/1, 2500/2"
-			}elseif($text == 'พิกัด'){
-				$msg = "ลาดกระบัง"
-			}else{
-				$msg = $text;
-			}
+			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => $msg
+				'text' => $text
 			];
 
 			// Make a POST Request to Messaging API to reply to sender
