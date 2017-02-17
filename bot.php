@@ -37,7 +37,7 @@ if (!is_null($events['events'])) {
 
 					$messages = [
 									'type' => 'text',
-									'text' => "Bangkok ".$summary." min:".$min." max:".max
+									'text' => "Bangkok ".$summary." min:".$min." max:".$max
 					];
 			
 
