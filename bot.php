@@ -20,7 +20,7 @@ if (!is_null($events['events'])) {
 
 			// Build message to reply back
 			
-			if(text =="weather")
+			if($text =="weather")
 			{
 					$url_Wea = 'https://api.darksky.net/forecast/0b57d9cda4b346d2937f726ce2b0a7ae/13.8027339,100.5528678?units=ca&exclude=hourly';
 					$ch_Wea = curl_init($url_Wea);
