@@ -39,7 +39,7 @@ if (!is_null($events['events'])) {
 									'type' => 'text',
 									'text' => "Bangkok ".$summary." min:".$min." max:".max
 					];
-			}
+			
 
 			
 		
@@ -58,13 +58,10 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			if(text =="weather"){
-				$result = curl_exec($ch);
+			$result = curl_exec($ch);	
+			curl_close($ch);
 			}
 			
-			curl_close($ch);
-
-			echo $result . "\r\n";
 		}
 	}
 }
