@@ -37,9 +37,20 @@ if (!is_null($events['events'])) {
 
 					$messages = [
 						'type' => 'text',
-						'text' => "Bangkok ".$summary." min:".$min." max:".$max,
+						'text' => "Bangkok "
 					];
-			
+					$m_summary = [
+						'type' => 'text',
+						'text' => "สภาพอากาศ :".$summary
+					];
+					$m_min = [
+						'type' => 'text',
+						'text' => "อุณหภูมิต่ำสุด :".$min
+					];
+					$m_max  = [
+						'type' => 'text',
+						'text' => "อุณหภูมิต่ำสูงสุด ".$max
+					];
 
 			
 		
@@ -47,7 +58,7 @@ if (!is_null($events['events'])) {
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages,$messages],
+				'messages' => [$messages,$m_summary,$m_min,$m_max],
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
