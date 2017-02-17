@@ -36,10 +36,8 @@ if (!is_null($events['events'])) {
 					$time_d = date("Y-m-d",$t);
 
 					$messages = [
-						{'type' => 'text',
-						'text' => "Bangkok ".$summary." min:".$min." max:".$max,},
-						{'type' => 'text',
-						'text' => "Bangkok ".$summary." min:".$min." max:".$max,},
+						'type' => 'text',
+						'text' => "Bangkok ".$summary." min:".$min." max:".$max,
 					];
 			
 
@@ -49,7 +47,7 @@ if (!is_null($events['events'])) {
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages],
+				'messages' => [$messages,$messages],
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
