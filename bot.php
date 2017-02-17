@@ -36,10 +36,10 @@ if (!is_null($events['events'])) {
 					$time_d = date("Y-m-d",$t);
 
 					$messages = [
-									'type' => 'text',
-									'text' => "Bangkok ".$summary." min:".$min." max:".$max,
-									'type' => 'text',
-									'text' => "Bangkok ".$summary." min:".$min." max:".$max,
+						{'type' => 'text',
+						'text' => "Bangkok ".$summary." min:".$min." max:".$max,},
+						{'type' => 'text',
+						'text' => "Bangkok ".$summary." min:".$min." max:".$max,},
 					];
 			
 
