@@ -22,6 +22,7 @@ if (!is_null($events['events'])) {
 			
 			if($text =="กรุงเทพมหานคร")
 			{
+					date_default_timezone_set("Asia/Bangkok");
 					$url_Wea = 'https://api.darksky.net/forecast/0b57d9cda4b346d2937f726ce2b0a7ae/13.8027339,100.5528678?units=ca&exclude=hourly';
 					$ch_Wea = curl_init($url_Wea);
 					curl_setopt($ch_Wea, CURLOPT_CUSTOMREQUEST, "GET");
