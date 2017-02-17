@@ -33,11 +33,11 @@ if (!is_null($events['events'])) {
 					$min = $wea["daily"]["data"][1]["temperatureMin"];
 					$max = $wea["daily"]["data"][1]["temperatureMax"];
 					$t = $wea["daily"]["data"][1]["time"];
-					$time_d = date("Y-m-d",$t);
+					$time_d = date("d/m/Y",$t);
 					$t = $wea["daily"]["data"][1]["sunriseTime"];
-					$sunrise = date("h:i:sa",$t);
+					$sunrise = date("h:i:s",$t);
 					$t = $wea["daily"]["data"][1]["sunsetTime"];
-					$sunset = date("h:i:sa",$t);
+					$sunset = date("h:i:s",$t);
 					$messages = [
 						'type' => 'text',
 						'text' => "กรุงเทพมหานคร ".$time_d 
