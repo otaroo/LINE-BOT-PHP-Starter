@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
 					$sunset = date("h:i:sa",$t);
 					$messages = [
 						'type' => 'text',
-						'text' => "กรุงเทพมหานคร"
+						'text' => "กรุงเทพมหานคร ".$time_d 
 					];
 					$m_summary = [
 						'type' => 'text',
