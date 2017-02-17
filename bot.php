@@ -37,19 +37,19 @@ if (!is_null($events['events'])) {
 
 					$messages = [
 						'type' => 'text',
-						'text' => "Bangkok "
+						'text' => "กรุงเทพมหานคร"
 					];
 					$m_summary = [
 						'type' => 'text',
-						'text' => "สภาพอากาศ :".$summary
+						'text' => "สภาพอากาศ ".$summary
 					];
 					$m_min = [
 						'type' => 'text',
-						'text' => "อุณหภูมิต่ำสุด :".$min
+						'text' => "อุณหภูมิต่ำสุด ".$min
 					];
 					$m_max  = [
 						'type' => 'text',
-						'text' => "อุณหภูมิต่ำสูงสุด ".$max
+						'text' => "อุณหภูมิสูงสุด ".$max
 					];
 
 			
