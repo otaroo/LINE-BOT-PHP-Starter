@@ -34,7 +34,10 @@ if (!is_null($events['events'])) {
 					$max = $wea["daily"]["data"][1]["temperatureMax"];
 					$t = $wea["daily"]["data"][1]["time"];
 					$time_d = date("Y-m-d",$t);
-
+					$t = $wea["daily"]["data"][1]["sunriseTime"];
+					$sunrise = date("Y-m-d",$t);
+					$t = $wea["daily"]["data"][1]["sunsetTime"];
+					$sunset = date("Y-m-d",$t);
 					$messages = [
 						'type' => 'text',
 						'text' => "กรุงเทพมหานคร"
@@ -43,13 +46,13 @@ if (!is_null($events['events'])) {
 						'type' => 'text',
 						'text' => "สภาพอากาศ ".$summary
 					];
-					$m_min = [
+					$Temperature = [
 						'type' => 'text',
-						'text' => "อุณหภูมิต่ำสุด ".$min
+						'text' => "อุณหภูมิต่ำสุด ".$min." อุณหภูมิสูงสุด ".$max
 					];
-					$m_max  = [
+					$sun  = [
 						'type' => 'text',
-						'text' => "อุณหภูมิสูงสุด ".$max
+						'text' =>  "พระอาทิตย์ขึ้น ".$sunrise." พระอาทิตย์ตก ".$sunset
 					];
 
 			
@@ -58,7 +61,7 @@ if (!is_null($events['events'])) {
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
 				'replyToken' => $replyToken,
-				'messages' => [$messages,$m_summary,$m_min,$m_max],
+				'messages' => [$messages,$m_summary,$Temperature,$sun],
 			];
 			$post = json_encode($data);
 			$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
