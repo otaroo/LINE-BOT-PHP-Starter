@@ -30,14 +30,14 @@ if (!is_null($events['events'])) {
 					curl_setopt($ch_Wea, CURLOPT_RETURNTRANSFER, 1);
 					$result_Wea = curl_exec($ch_Wea);
 					$wea = json_decode($result_Wea, true);
-					$summary = $wea["daily"]["data"][1]["summary"];
-					$min = $wea["daily"]["data"][1]["temperatureMin"];
-					$max = $wea["daily"]["data"][1]["temperatureMax"];
-					$t = $wea["daily"]["data"][1]["time"];
+					$summary = $wea["daily"]["data"][0]["summary"];
+					$min = $wea["daily"]["data"][0]["temperatureMin"];
+					$max = $wea["daily"]["data"][0]["temperatureMax"];
+					$t = $wea["daily"]["data"][0]["time"];
 					$time_d = date("d/m/Y",$t);
-					$t = $wea["daily"]["data"][1]["sunriseTime"];
+					$t = $wea["daily"]["data"][0]["sunriseTime"];
 					$sunrise = date("h:i",$t);
-					$t = $wea["daily"]["data"][1]["sunsetTime"];
+					$t = $wea["daily"]["data"][0]["sunsetTime"];
 					$sunset = date("h:i",$t);
 					$messages = [
 						'type' => 'text',
