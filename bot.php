@@ -19,11 +19,30 @@ if (!is_null($events['events'])) {
 			$replyToken = $event['replyToken'];
 
 			// Build message to reply back
-			$messages = [
-				'type' => 'text',
-				'text' => $UID.": ".$text
-			];
+			
+			if(text =="weather")
+			{
+					$url_Wea = 'https://api.darksky.net/forecast/0b57d9cda4b346d2937f726ce2b0a7ae/13.8027339,100.5528678?units=ca&exclude=hourly';
+					$ch_Wea = curl_init($url_Wea);
+					curl_setopt($ch_Wea, CURLOPT_CUSTOMREQUEST, "GET");
+					curl_setopt($ch_Wea, CURLOPT_SSL_VERIFYPEER, false);
+					curl_setopt($ch_Wea, CURLOPT_RETURNTRANSFER, 1);
+					$result_Wea = curl_exec($ch_Wea);
+					$wea = json_decode($result_Wea, true);
+					$summary = $wea["daily"]["data"][1]["summary"];
+					$min = $wea["daily"]["data"][1]["temperatureMin"];
+					$max = $wea["daily"]["data"][1]["temperatureMax"];
+					$t = $wea["daily"]["data"][1]["time"];
+					$time_d = date("Y-m-d",$t);
 
+					$messages = [
+									'type' => 'text',
+									'text' => "Bangkok ".$summary." min:".$min." max:".max
+					];
+			}
+
+			
+		
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
 			$data = [
@@ -39,7 +58,10 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-			//$result = curl_exec($ch);
+			if(text =="weather"){
+				$result = curl_exec($ch);
+			}
+			
 			curl_close($ch);
 
 			echo $result . "\r\n";
@@ -47,3 +69,7 @@ if (!is_null($events['events'])) {
 	}
 }
 echo "OK";
+	
+			
+		
+			
