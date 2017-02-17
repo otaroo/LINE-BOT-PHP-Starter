@@ -36,9 +36,9 @@ if (!is_null($events['events'])) {
 					$t = $wea["daily"]["data"][1]["time"];
 					$time_d = date("d/m/Y",$t);
 					$t = $wea["daily"]["data"][1]["sunriseTime"];
-					$sunrise = date("h:i:s",$t);
+					$sunrise = date("h:i",$t);
 					$t = $wea["daily"]["data"][1]["sunsetTime"];
-					$sunset = date("h:i:s",$t);
+					$sunset = date("h:i",$t);
 					$messages = [
 						'type' => 'text',
 						'text' => "กรุงเทพมหานคร ".$time_d 
