@@ -133,9 +133,10 @@ function GetYoutube($search_query) {
     $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
     $messages = [
         [
-        'type' => 'template',
-        'altText' => 'template',
-        'template' => 'template',
+        'type' => 'image',
+        'originalContentUrl'=>  $image_m,
+        'previewImageUrl' => $image_h,
+
         ],
          [
             'type' => 'text',
