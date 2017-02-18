@@ -22,10 +22,18 @@ if (!is_null($events['events'])) {
                     $location = GetLocation($text[1]);
                     $wea = GetWeather($location);
                     $currently = $wea["currently"]["temperature"];
-                    $messages = [
-                    'type' => 'text',
-                    'text' => $text[1]." ".$currently." องศา"
-                    ];
+                    if(!($currently === null)){
+                        $messages = [
+                        'type' => 'text',
+                        'text' => $text[1]." ".$currently." องศา"
+                        ];
+                    }else{
+                        $messages = [
+                        'type' => 'text',
+                        'text' => "หาไม่เจอ"
+                        ];
+                    }
+                    
                     $data = [
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
