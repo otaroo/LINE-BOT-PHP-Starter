@@ -63,11 +63,7 @@ if (!is_null($events['events'])) {
     }
 }
 echo "OK";
-<<<<<<< HEAD
-			$search = "สุโขทัย"
-=======
-	$search = "สุโขทัย"
->>>>>>> 0aa0be708d74116635a95a522355f903eb98135e
+            $search = "สุโขทัย"
 			$url_dataGo = 'http://demo-api.data.go.th/searching/api/dataset/query?dsname=tambon&path=TAMBON&property=CHANGWAT_T&operator=CONTAINS&value='.$search.'&property=AMPHOE_E&operator=CONTAINS&value=Mueang+&property=&value=&limit=100&offset=0';
             $ch_dataGo = curl_init($url_dataGo);
             curl_setopt($ch_dataGo , CURLOPT_CUSTOMREQUEST, "GET");
@@ -75,11 +71,5 @@ echo "OK";
             curl_setopt($ch_dataGo , CURLOPT_RETURNTRANSFER, 1);
             $result_dataGo  = curl_exec($ch_dataGo );
             $wea = json_decode($result_dataGo, true);
-<<<<<<< HEAD
 			echo $wea[0]["ชื่ออำเภอ"];
-=======
-			echo $wea[0]["ชื่ออำเภอ"];
-			
-		
-			
->>>>>>> 0aa0be708d74116635a95a522355f903eb98135e
+echo "dd";
