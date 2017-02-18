@@ -22,17 +22,28 @@ if (!is_null($events['events'])) {
                     $location = GetLocation($text[1]);
                     $messages = GetWeather($location,$text[1]);
                     
+                }elseif($text[0] == "Jarvis" && $text[1] === "หาเพลง"){
+                    if(!($text[2] === null)){
+                        $messages = GetYoutube($text[2]);
+                    }else{
+                        $messages = [[
+                        'type' => 'text',
+                        'text' => "หาไม่เจอ"
+                        ]];
+                    }
+                    
+                    
                     
                 }elseif($text[0] == "Jarvis" && $text[1] === NULL){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hi", "Hello", "How are you?");
-                    $messages = [
+                    $messages = [[
                     'type' => 'text',
                     'text' => $a[array_rand($a)]
-                    ];
+                    ]];
                 }
                 $data = [
                 'replyToken' => $replyToken,
-                'messages' => [$messages],
+                'messages' => $messages,
                 ];
                 PushMessage($data);
                 
@@ -79,18 +90,23 @@ function GetWeather($location,$province) {
     $currently = $result_W["currently"]["temperature"];
     if(!($currently === null)){
         $messages = [
-        'type' => 'text',
-        'text' => $province." ".$currently." องศา"
+            [
+                'type' => 'text',
+                'text' => $province." ".$currently." องศา"
+            ]
         ];
     }else{
         $a=array("หาไม่เจอ","ตอนนี้ยังไม่มี","ลองใหม่","แค่ชื่อจังหวัดเท่านั้น");
         $messages = [
-        'type' => 'text',
-        'text' => $a[array_rand($a)]
+            [
+                'type' => 'text',
+                'text' => $a[array_rand($a)]
+            ]
         ];
     }
     return $messages ;
 }
+
 function GetYoutube($search_query) {
     
     $url_Yt = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyBjQJjyNUFfev4rznR_TMef0i0bl4TmyCw&q='.$search_query;
@@ -100,9 +116,29 @@ function GetYoutube($search_query) {
     curl_setopt($ch_Yt, CURLOPT_RETURNTRANSFER, 1);
     $result_Yt = curl_exec($ch_Yt);
     $youtube_data = json_decode($result_Yt, true);
+    $url = $youtube_data["items"][0]["id"]["videoId"];
+    $title = $youtube_data["items"][0]["snippet"]["title"];
+    $image_m= $youtube_data["items"][0]["snippet"]["thumbnails"]["medium"]["url"];
+    $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
+    $messages = [
+        [
+        'type' => 'image',
+        'originalContentUrl'=>  $image_m,
+        'previewImageUrl' => $image_h,
 
+        ],
+         [
+            'type' => 'text',
+            'text' => $title,
+        ],
+        [
+            'type' => 'text',
+            'text' => "https://www.youtube.com/watch?v=".$url,
+        ]
+    ];
+    $data = json_encode($messages);
     
-    return  $youtube_data;
+    return  $data;
 }
 
 function PushMessage($data){
