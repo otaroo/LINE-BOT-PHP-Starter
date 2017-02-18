@@ -17,10 +17,10 @@ if (!is_null($events['events'])) {
             $messages=[];
             if(!($event['message']['text'] === NULL)){
                 $text =explode( ' ', $event['message']['text']);
-                if( $text[0] == "Jarvis" && !($text[1] === NULL)){
+                if( $text[0] == "Jarvis" && $text[1] === "อากาศ")){
                     
-                    $location = GetLocation($text[1]);
-                    $messages = GetWeather($location,$text[1]);
+                    $location = GetLocation($text[2]);
+                    $messages = GetWeather($location,$text[2]);
                     
                 }elseif($text[0] == "Jarvis" && $text[1] === "หาเพลง"){
                     if(!($text[2] === null)){
