@@ -130,9 +130,9 @@ function GetYoutube($search_query) {
             'text' => "https://www.youtube.com/watch?v=".$url,
         ]
     ];
-    $data = json_encode($messages);
     
-    return  $data;
+    
+    return  $messages;
 }
 
 function PushMessage($data){
