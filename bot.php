@@ -149,6 +149,10 @@ function GetYoutube($search_query) {
     $youtube_data = json_decode($result_Yt, true);
     $url = $youtube_data["items"][0]["id"]["videoId"];
     $title = $youtube_data["items"][0]["snippet"]["title"];
+    if(strlen($title)>60){
+        $title = substr($title ,0,55);
+        echo $title."...";
+    }
     $image_m= $youtube_data["items"][0]["snippet"]["thumbnails"]["medium"]["url"];
     $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
     $messages = [
