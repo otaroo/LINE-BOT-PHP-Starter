@@ -30,7 +30,7 @@ if (!is_null($events['events'])) {
                     if(!($text[2] === null)){
                         $s_youtubr=$text[2];
                         if(!($text[3] === null)){
-                            $s_youtubr=$text[2].$text[3];
+                            $s_youtubr=$text[2]."+".$text[3];
                         }
                         $messages = GetYoutube($s_youtubr);
                         $data = [
@@ -149,8 +149,8 @@ function GetYoutube($search_query) {
     $youtube_data = json_decode($result_Yt, true);
     $url = $youtube_data["items"][0]["id"]["videoId"];
     $title = $youtube_data["items"][0]["snippet"]["title"];
-    if(strlen($title)>60){
-        $title = substr($title ,0,55);
+    if(strlen($title)>50){
+        $title = substr($title ,0,45);
     }
     $image_m= $youtube_data["items"][0]["snippet"]["thumbnails"]["medium"]["url"];
     $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
