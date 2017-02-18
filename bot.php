@@ -31,7 +31,7 @@ if (!is_null($events['events'])) {
                     if(!($text[2] === null)){
                         $s_youtubr=$text[2];
                         if(!($text[3] === null)){
-                            $s_youtubr=$text[2]." ".$text[3];
+                            $s_youtubr=$text[2].$text[3];
                         }
                         $messages = GetYoutube($s_youtubr);
                          $data = [
@@ -140,7 +140,7 @@ function GetYoutube($search_query) {
         ],
          [
             'type' => 'text',
-            'text' => $title." - https://www.youtube.com/watch?v=".$url,
+            'text' => $title." youtube://watch?v=".$url,
         ],
       
     ];
