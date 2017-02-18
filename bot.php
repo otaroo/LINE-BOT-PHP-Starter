@@ -69,7 +69,7 @@ if (!is_null($events['events'])) {
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
                     ];   
-                }elseif($text[0] == "Jarvis" && ($text[1] === NULL || !($text[1] === NULL))){
+                }elseif($text[0] == "Jarvis" && $text[1] === NULL){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!","ธัมมชโย อยู่ที่ไหน?");
                     $messages = [
                     'type' => 'text',
