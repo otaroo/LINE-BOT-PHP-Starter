@@ -13,7 +13,6 @@ if (!is_null($events['events'])) {
         if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
             $UID =  $event['source']['groupId'];
             $replyToken = $event['replyToken'];
-            
             $messages=[];
             $data = [];
             
@@ -48,7 +47,7 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];
                     }
-                }elseif($text[0] == "Jarvis" && ($text[1] === "ทำอะไรได้บ้าง"||$text[1] === "ทำไรได้บ้าง"){
+                }elseif($text[0] == "Jarvis" && ($text[1] === "ทำอะไรได้บ้าง"||$text[1] === "ทำไรได้บ้าง")){
                     $messages_1 = [
                     'type' => 'text',
                     'text' => "รายงานสภาพอากาศ [Jarvis อากาศ 'ชื่อจังหวัด']"
