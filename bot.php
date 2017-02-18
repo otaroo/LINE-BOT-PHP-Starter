@@ -137,7 +137,7 @@ function GetYoutube($search_query) {
         'template' => [
             'type' => 'buttons',
             'thumbnailImageUrl' => $image_h,
-            'title' => '',
+            'title' => ' ',
             "text" => $title,
             "actions" => [
                 [    
