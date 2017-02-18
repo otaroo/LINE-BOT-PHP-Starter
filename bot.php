@@ -143,7 +143,7 @@ function GetYoutube($search_query) {
                 [    
                 "type" => "uri",
                 "label" => "ดูบน Youtube",
-                "uri" => "youtube://watch?v=".$url        
+                "uri" => "https://www.youtube.com/watch?v=".$url        
                 ]
             ]   
         ]   
