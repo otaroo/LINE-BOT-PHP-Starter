@@ -36,7 +36,7 @@ if (!is_null($events['events'])) {
                         $messages = GetYoutube($s_youtubr);
                          $data = [
                             'replyToken' => $replyToken,
-                            'messages' => [$messages],
+                            'messages' => $messages,
                         ];
                     }else{
                         $messages = [
@@ -131,7 +131,7 @@ function GetYoutube($search_query) {
     $title = $youtube_data["items"][0]["snippet"]["title"];
     $image_m= $youtube_data["items"][0]["snippet"]["thumbnails"]["medium"]["url"];
     $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
-   /* $messages = [
+    $messages = [
         [
         'type' => 'template',
         'altText' => 'template',
@@ -142,27 +142,8 @@ function GetYoutube($search_query) {
             'text' => $title." youtube://watch?v=".$url,
         ],
       
-    ];*/
-      $messages = [
-        
-        'type' => 'template',
-        'altText' => 'template',
-        'template' => [
-            'type' => 'buttons',
-            'thumbnailImageUrl' => $image_h,
-            'title' => 'เจอแล้ว',
-            "text" => $title,
-            "actions" => [
-                [    
-                "type" => "uri",
-                "label" => "ดูบน Youtube",
-                "uri" => "https://www.youtube.com/watch?v=".$url        
-                ]
-            ]
-            
-        ]
-        
     ];
+    
     
     return  $messages;
 }
