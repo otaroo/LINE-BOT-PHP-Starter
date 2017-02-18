@@ -151,7 +151,6 @@ function GetYoutube($search_query) {
     $title = $youtube_data["items"][0]["snippet"]["title"];
     if(strlen($title)>60){
         $title = substr($title ,0,55);
-        echo $title."...";
     }
     $image_m= $youtube_data["items"][0]["snippet"]["thumbnails"]["medium"]["url"];
     $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
@@ -162,7 +161,7 @@ function GetYoutube($search_query) {
     'type' => 'buttons',
     'thumbnailImageUrl' => $image_h,
     'title' => ' ',
-    "text" => $title,
+    "text" => $title."...",
     "actions" => [
     [
     "type" => "uri",
