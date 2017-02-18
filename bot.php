@@ -28,18 +28,25 @@ if (!is_null($events['events'])) {
                         'text' => $text[1]." ".$currently." องศา"
                         ];
                     }else{
+                        $a=array("หาไม่เจอ","ตอนนี้ยังไม่มี","ลองใหม่","แค่ชื่อจังหวัดเท่านั้น");
                         $messages = [
                         'type' => 'text',
-                        'text' => "หาไม่เจอ"
+                        'text' => $a[array_rand($a)]
                         ];
                     }
                     
-                    $data = [
-                    'replyToken' => $replyToken,
-                    'messages' => [$messages],
+                }elseif($text[0] == "Jarvis" && $text[1] === NULL){
+                    $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hi", "Hello", "How are you?");
+                    $messages = [
+                    'type' => 'text',
+                    'text' => $a[array_rand($a)]
                     ];
-                    PushMessage($data);
                 }
+                $data = [
+                'replyToken' => $replyToken,
+                'messages' => [$messages],
+                ];
+                PushMessage($data);
                 
             }
             
