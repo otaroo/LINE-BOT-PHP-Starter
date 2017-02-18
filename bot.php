@@ -20,20 +20,8 @@ if (!is_null($events['events'])) {
                 if( $text[0] == "Jarvis" && !($text[1] === NULL)){
                     
                     $location = GetLocation($text[1]);
-                    $wea = GetWeather($location);
-                    $currently = $wea["currently"]["temperature"];
-                    if(!($currently === null)){
-                        $messages = [
-                        'type' => 'text',
-                        'text' => $text[1]." ".$currently." องศา"
-                        ];
-                    }else{
-                        $a=array("หาไม่เจอ","ตอนนี้ยังไม่มี","ลองใหม่","แค่ชื่อจังหวัดเท่านั้น");
-                        $messages = [
-                        'type' => 'text',
-                        'text' => $a[array_rand($a)]
-                        ];
-                    }
+                    $messages = GetWeather($location);
+                    
                     
                 }elseif($text[0] == "Jarvis" && $text[1] === NULL){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hi", "Hello", "How are you?");
@@ -87,7 +75,34 @@ function GetWeather($location) {
     curl_setopt($ch_Wea, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch_Wea, CURLOPT_RETURNTRANSFER, 1);
     $result_Wea = curl_exec($ch_Wea);
-    return json_decode($result_Wea, true);
+    $result_W = json_decode($result_Wea, true);
+    $currently = $result_W["currently"]["temperature"];
+    if(!($currently === null)){
+        $messages = [
+        'type' => 'text',
+        'text' => $text[1]." ".$currently." องศา"
+        ];
+    }else{
+        $a=array("หาไม่เจอ","ตอนนี้ยังไม่มี","ลองใหม่","แค่ชื่อจังหวัดเท่านั้น");
+        $messages = [
+        'type' => 'text',
+        'text' => $a[array_rand($a)]
+        ];
+    }
+    return $messages ;
+}
+function GetYoutube($search_query) {
+    
+    $url_Yt = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyBjQJjyNUFfev4rznR_TMef0i0bl4TmyCw&q='.$search_query;
+    $ch_Yt = curl_init($url_Yt);
+    curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch_Yt, CURLOPT_RETURNTRANSFER, 1);
+    $result_Yt = curl_exec($ch_Yt);
+    $youtube_data = json_decode($result_Yt, true);
+
+    
+    return  $youtube_data;
 }
 
 function PushMessage($data){
