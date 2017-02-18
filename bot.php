@@ -17,33 +17,31 @@ if (!is_null($events['events'])) {
             $messages=[];
             if(!($event['message']['text'] === NULL)){
                 $text =explode( ' ', $event['message']['text']);
-                if( $text[0] == "Jarvis" && $text[1] == "อากาศ")){
+                if( $text[0] == "Jarvis" && !($text[1] === "อากาศ")){
                     
                     $location = GetLocation($text[2]);
                     $messages = GetWeather($location,$text[2]);
                     
-                }elseif($text[0] == "Jarvis" && $text[1] == "หาเพลง"){
+                }elseif($text[0] == "Jarvis" && $text[1] === "หาเพลง"){
                     if(!($text[2] === null)){
                         $messages = GetYoutube($text[2]);
                     }else{
-                        $messages = [[
+                        $messages = [
                         'type' => 'text',
-                        'text' => "หาไม่เจออ่ะ"
-                        ]];
+                        'text' => "หาไม่เจอ"
+                        ];
                     }
-                    
-                    
-                    
+                        
                 }elseif($text[0] == "Jarvis" && $text[1] === NULL){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hi", "Hello", "How are you?");
-                    $messages = [[
+                    $messages = [
                     'type' => 'text',
                     'text' => $a[array_rand($a)]
-                    ]];
+                    ];
                 }
                 $data = [
                 'replyToken' => $replyToken,
-                'messages' => $messages,
+                'messages' => [$messages],
                 ];
                 PushMessage($data);
                 
@@ -90,18 +88,14 @@ function GetWeather($location,$province) {
     $currently = $result_W["currently"]["temperature"];
     if(!($currently === null)){
         $messages = [
-            [
-                'type' => 'text',
-                'text' => $province." ".$currently." องศา"
-            ]
+        'type' => 'text',
+        'text' => $province." ".$currently." องศา"
         ];
     }else{
         $a=array("หาไม่เจอ","ตอนนี้ยังไม่มี","ลองใหม่","แค่ชื่อจังหวัดเท่านั้น");
         $messages = [
-            [
-                'type' => 'text',
-                'text' => $a[array_rand($a)]
-            ]
+        'type' => 'text',
+        'text' => $a[array_rand($a)]
         ];
     }
     return $messages ;
