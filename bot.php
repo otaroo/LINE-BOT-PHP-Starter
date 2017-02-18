@@ -17,14 +17,14 @@ if (!is_null($events['events'])) {
             $messages=[];
             if(!($event['message']['text'] === NULL)){
                 $text =explode( ' ', $event['message']['text']);
-                if( $text[0] == "Jarvis" && !($text[0] === NULL)){
+                if( $text[0] == "Jarvis" && !($text[1] === NULL)){
                     
-                    $location = GetLocation("สุโขทัย");
+                    $location = GetLocation($text[1]);
                     $wea = GetWeather($location);
                     $currently = $wea["currently"]["temperature"];
                     $messages = [
                     'type' => 'text',
-                    'text' => $text[1]." ".$currently
+                    'text' => $text[1]." ".$currently." องศา"
                     ];
                     $data = [
                     'replyToken' => $replyToken,
