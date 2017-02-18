@@ -20,7 +20,7 @@ if (!is_null($events['events'])) {
                 if( $text[0] == "Jarvis" && !($text[1] === NULL)){
                     
                     $location = GetLocation($text[1]);
-                    $messages = GetWeather($location);
+                    $messages = GetWeather($location,$text[1]);
                     
                     
                 }elseif($text[0] == "Jarvis" && $text[1] === NULL){
@@ -67,7 +67,7 @@ function GetLocation($province) {
 }
 
 
-function GetWeather($location) {
+function GetWeather($location,$province) {
     date_default_timezone_set("Asia/Bangkok");
     $url_Wea = 'https://api.darksky.net/forecast/0b57d9cda4b346d2937f726ce2b0a7ae/'.$location.'?units=ca&exclude=hourly';
     $ch_Wea = curl_init($url_Wea);
@@ -80,7 +80,7 @@ function GetWeather($location) {
     if(!($currently === null)){
         $messages = [
         'type' => 'text',
-        'text' => $text[1]." ".$currently." องศา"
+        'text' => $province." ".$currently." องศา"
         ];
     }else{
         $a=array("หาไม่เจอ","ตอนนี้ยังไม่มี","ลองใหม่","แค่ชื่อจังหวัดเท่านั้น");
