@@ -24,8 +24,8 @@ if (!is_null($events['events'])) {
                     $location = GetLocation($text[2]);
                     $messages = GetWeather($location,$text[2]);
                     $data = [
-                        'replyToken' => $replyToken,
-                        'messages' => [$messages],
+                    'replyToken' => $replyToken,
+                    'messages' => [$messages],
                     ];
                 }elseif($text[0] == "Jarvis" && $text[1] === "หาเพลง"){
                     if(!($text[2] === null)){
@@ -34,32 +34,44 @@ if (!is_null($events['events'])) {
                             $s_youtubr=$text[2].$text[3];
                         }
                         $messages = GetYoutube($s_youtubr);
-                         $data = [
-                            'replyToken' => $replyToken,
-                            'messages' => [$messages],
+                        $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
                         ];
                     }else{
                         $messages = [
                         'type' => 'text',
                         'text' => "หาไม่เจอ"
                         ];
-                         $data = [
-                            'replyToken' => $replyToken,
-                            'messages' => [$messages],
-                        ];
-                    }
-                        
-                }elseif($text[0] == "Jarvis" && $text[1] === NULL){
-                    $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hi", "Hello", "How are you?");
-                    $messages = [
-                        'type' => 'text',
-                        'text' => $a[array_rand($a)]
-                    ];
-                    $data = [
+                        $data = [
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
+                        ];
+                    }
+                }elseif($text[0] == "Jarvis" && ($text[1] === "ทำอะไรได้บ้าง"||$text[1] === "ทำไรได้บ้าง"){
+                    $messages_1 = [
+                    'type' => 'text',
+                    'text' => "รายงานสภาพอากาศ [Jarvis อากาศ 'ชื่อจังหวัด']"
                     ];
-                }              
+                    $messages_2 = [
+                    'type' => 'text',
+                    'text' => "หาเพลงใน Youtube [Jarvis หาเพลง 'ชื่อเพลง']"
+                    ];
+                    $data = [
+                    'replyToken' => $replyToken,
+                    'messages' => [$messages_1,$messages_2 ],
+                    ];
+                }elseif($text[0] == "Jarvis" && $text[1] === NULL){
+                    $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!","ธัมมชโย อยู่ที่ไหน?");
+                    $messages = [
+                    'type' => 'text',
+                    'text' => $a[array_rand($a)]
+                    ];
+                    $data = [
+                    'replyToken' => $replyToken,
+                    'messages' => [$messages],
+                    ];
+                }
                 PushMessage($data);
                 
             }
@@ -132,21 +144,21 @@ function GetYoutube($search_query) {
     $image_m= $youtube_data["items"][0]["snippet"]["thumbnails"]["medium"]["url"];
     $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
     $messages = [
-        'type' => 'template',
-        'altText' => 'template',
-        'template' => [
-            'type' => 'buttons',
-            'thumbnailImageUrl' => $image_h,
-            'title' => ' ',
-            "text" => $title,
-            "actions" => [
-                [    
-                "type" => "uri",
-                "label" => "ดูบน Youtube",
-                "uri" => "https://www.youtube.com/watch?v=".$url        
-                ]
-            ]   
-        ]   
+    'type' => 'template',
+    'altText' => 'template',
+    'template' => [
+    'type' => 'buttons',
+    'thumbnailImageUrl' => $image_h,
+    'title' => ' ',
+    "text" => $title,
+    "actions" => [
+    [
+    "type" => "uri",
+    "label" => "ดูบน Youtube",
+    "uri" => "https://www.youtube.com/watch?v=".$url
+    ]
+    ]
+    ]
     ];
     
     
