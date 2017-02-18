@@ -136,12 +136,9 @@ function GetYoutube($search_query) {
         ],
          [
             'type' => 'text',
-            'text' => $title,
+            'text' => $title." - https://www.youtube.com/watch?v=".$url,
         ],
-        [
-            'type' => 'text',
-            'text' => "https://www.youtube.com/watch?v=".$url,
-        ]
+      
     ];
     
     
