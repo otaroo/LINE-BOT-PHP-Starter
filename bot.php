@@ -15,9 +15,9 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             
             $messages=[];
-            if($event['message']['text'] === NULL){
+            if(!($event['message']['text'] === NULL)){
                 $text =explode( ' ', $event['message']['text']);
-                if( $text[0] == "Jarvis" && $text[0] === NULL){
+                if( $text[0] == "Jarvis" && !($text[0] === NULL)){
                     
                     $location = GetLocation("สุโขทัย");
                     $wea = GetWeather($location);
