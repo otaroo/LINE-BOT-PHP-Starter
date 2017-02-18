@@ -1,5 +1,5 @@
 <?php
-$access_token = 'x';
+
 
 // Get POST body content
 $content = file_get_contents('php://input');
@@ -14,19 +14,25 @@ if (!is_null($events['events'])) {
             $text = $event['message']['text'];
             $UID =  $event['source']['groupId'];
             $replyToken = $event['replyToken'];
+
+            $messages=[];
+            if($event['message']['text'] == "Jarvis สุโขทัย"){
+                $location = GetLocation("สุโขทัย");
+                $wea = GetWeather($location);
+                $currently = $wea["currently"]["temperature"];
+                $messages = [
+                'type' => 'text',
+                'text' => "กรุงเทพมหานคร ".$currently
+                ];
+            }
+             $data = [
+            'replyToken' => $replyToken,
+            'messages' => [$messages],
+            ];
+            PushMessage($data);
             
-            // get ละติจูด ลองติจูด
             
-            
-            date_default_timezone_set("Asia/Bangkok");
-            $url_Wea = 'https://api.darksky.net/forecast/0b57d9cda4b346d2937f726ce2b0a7ae/13.8027339,100.5528678?units=ca&exclude=hourly';
-            $ch_Wea = curl_init($url_Wea);
-            curl_setopt($ch_Wea, CURLOPT_CUSTOMREQUEST, "GET");
-            curl_setopt($ch_Wea, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch_Wea, CURLOPT_RETURNTRANSFER, 1);
-            $result_Wea = curl_exec($ch_Wea);
-            $wea = json_decode($result_Wea, true);
-            $summary = $wea["daily"]["data"][0]["summary"];
+            /*$summary = $wea["daily"]["data"][0]["summary"];
             $min = $wea["daily"]["data"][0]["temperatureMin"];
             $max = $wea["daily"]["data"][0]["temperatureMax"];
             $t = $wea["daily"]["data"][0]["time"];
@@ -34,44 +40,47 @@ if (!is_null($events['events'])) {
             $t = $wea["daily"]["data"][0]["sunriseTime"];
             $sunrise = date("h:i",$t);
             $t = $wea["daily"]["data"][0]["sunsetTime"];
-            $sunset = date("h:i",$t);
-            $messages = [
-            'type' => 'text',
-            'text' => "กรุงเทพมหานคร ".$time_d
-            ];
-            
-            // Make a POST Request to Messaging API to reply to sender
-            $url = 'https://api.line.me/v2/bot/message/reply';
-            $data = [
-            'replyToken' => $replyToken,
-            'messages' => [$messages,$m_summary,$Temperature,$sun],
-            ];
-            $post = json_encode($data);
-            $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
-            
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            $result = curl_exec($ch);
-            curl_close($ch);
-            
-            
+            $sunset = date("h:i",$t);*/ 
         }
     }
 }
 echo "OK";
 
-$search = urlencode("สุโขทัย");
-$url_dataGo = 'http://demo-api.data.go.th/searching/api/dataset/query?dsname=tambon&path=TAMBON&property=CHANGWAT_T&operator=CONTAINS&value='.$search.'&property=AMPHOE_T&operator=CONTAINS&value='.$search.'&limit=100&offset=0';
-$ch_dataGo = curl_init($url_dataGo);
-curl_setopt($ch_dataGo , CURLOPT_CUSTOMREQUEST, "GET");
-curl_setopt($ch_dataGo , CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch_dataGo , CURLOPT_RETURNTRANSFER, 1);
-$result_dataGo  = curl_exec($ch_dataGo );
-$wea = json_decode($result_dataGo, true);
-echo $wea[0]["ชื่อจังหวัด"];
-echo $wea[0]["ค่าละติจูด"];
-echo $wea[0]["ค่าลองจิจูด"];
+function GetLocation($province) {
+    $search = urlencode($province);
+    $url_dataGo = 'http://demo-api.data.go.th/searching/api/dataset/query?dsname=tambon&path=TAMBON&property=CHANGWAT_T&operator=CONTAINS&value='.$search.'&property=AMPHOE_T&operator=CONTAINS&value='.$search.'&limit=100&offset=0';
+    $ch_dataGo = curl_init($url_dataGo);
+    curl_setopt($ch_dataGo , CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch_dataGo , CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch_dataGo , CURLOPT_RETURNTRANSFER, 1);
+    $result_dataGo  = curl_exec($ch_dataGo );
+    $wea = json_decode($result_dataGo, true);
+    return $wea[0]["ค่าละติจูด"].",".$wea[0]["ค่าลองจิจูด"];
+}
+
+
+function GetWeather($location) {
+    date_default_timezone_set("Asia/Bangkok");
+    $url_Wea = 'https://api.darksky.net/forecast/0b57d9cda4b346d2937f726ce2b0a7ae/'.$location.'?units=ca&exclude=hourly';
+    $ch_Wea = curl_init($url_Wea);
+    curl_setopt($ch_Wea, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch_Wea, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch_Wea, CURLOPT_RETURNTRANSFER, 1);
+    $result_Wea = curl_exec($ch_Wea);
+    return json_decode($result_Wea, true);
+}
+
+function PushMessage($data){
+    $access_token = 'Yfp4E1/cS+OUoQOVVHc2/uLctihQ5gHv9o5rPRMLp0drPl0ObyZwI8uYQjm/VozeGloTmKsOnpdNdwmUrJTw91JQX3LJG3bVSpRFe/q++N0p0ZuTsLoksNRK6TBkmR4+KIgNplG7sib3btmH6nYuowdB04t89/1O/w1cDnyilFU=';
+    $url = 'https://api.line.me/v2/bot/message/reply';
+    $post = json_encode($data);
+    $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
+}
