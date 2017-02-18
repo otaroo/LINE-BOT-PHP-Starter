@@ -28,7 +28,7 @@ if (!is_null($events['events'])) {
                     }else{
                         $messages = [[
                         'type' => 'text',
-                        'text' => "หาไม่เจอ"
+                        'text' => "หาไม่เจออ่ะ"
                         ]];
                     }
                     
