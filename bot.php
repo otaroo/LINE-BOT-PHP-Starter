@@ -36,7 +36,7 @@ if (!is_null($events['events'])) {
                         $messages = GetYoutube($s_youtubr);
                          $data = [
                             'replyToken' => $replyToken,
-                            'messages' => $messages,
+                            'messages' => [$messages],
                         ];
                     }else{
                         $messages = [
