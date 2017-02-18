@@ -11,25 +11,30 @@ if (!is_null($events['events'])) {
     foreach ($events['events'] as $event) {
         // Reply only when message sent is in 'text' format
         if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
-            $text = $event['message']['text'];
             $UID =  $event['source']['groupId'];
             $replyToken = $event['replyToken'];
-
+            
             $messages=[];
-            if($event['message']['text'] == "Jarvis สุโขทัย"){
-                $location = GetLocation("สุโขทัย");
-                $wea = GetWeather($location);
-                $currently = $wea["currently"]["temperature"];
-                $messages = [
-                'type' => 'text',
-                'text' => "กรุงเทพมหานคร ".$currently
-                ];
+            if($event['message']['text'] === NULL){
+                $text =explode( ' ', $event['message']['text']);
+                if( $text[0] == "Jarvis" && $text[0] === NULL){
+                    
+                    $location = GetLocation("สุโขทัย");
+                    $wea = GetWeather($location);
+                    $currently = $wea["currently"]["temperature"];
+                    $messages = [
+                    'type' => 'text',
+                    'text' => $text[0]." ".$currently
+                    ];
+                    $data = [
+                    'replyToken' => $replyToken,
+                    'messages' => [$messages],
+                    ];
+                    PushMessage($data);
+                }
+                
             }
-             $data = [
-            'replyToken' => $replyToken,
-            'messages' => [$messages],
-            ];
-            PushMessage($data);
+            
             
             
             /*$summary = $wea["daily"]["data"][0]["summary"];
@@ -40,7 +45,7 @@ if (!is_null($events['events'])) {
             $t = $wea["daily"]["data"][0]["sunriseTime"];
             $sunrise = date("h:i",$t);
             $t = $wea["daily"]["data"][0]["sunsetTime"];
-            $sunset = date("h:i",$t);*/ 
+            $sunset = date("h:i",$t);*/
         }
     }
 }
