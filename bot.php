@@ -29,7 +29,11 @@ if (!is_null($events['events'])) {
                     ];
                 }elseif($text[0] == "Jarvis" && $text[1] === "หาเพลง"){
                     if(!($text[2] === null)){
-                        $messages = GetYoutube($text[2]);
+                        $s_youtubr=$text[2];
+                        if(!($text[3] === null)){
+                            $s_youtubr=$text[2]." ".$text[3];
+                        }
+                        $messages = GetYoutube($s_youtubr);
                          $data = [
                             'replyToken' => $replyToken,
                             'messages' => $messages,
