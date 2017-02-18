@@ -15,34 +15,47 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             
             $messages=[];
+            $data = [];
+            
             if(!($event['message']['text'] === NULL)){
                 $text =explode( ' ', $event['message']['text']);
                 if( $text[0] == "Jarvis" && $text[1] === "อากาศ"){
                     
                     $location = GetLocation($text[2]);
                     $messages = GetWeather($location,$text[2]);
-                    
+                    $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
+                    ];
                 }elseif($text[0] == "Jarvis" && $text[1] === "หาเพลง"){
                     if(!($text[2] === null)){
                         $messages = GetYoutube($text[2]);
+                         $data = [
+                            'replyToken' => $replyToken,
+                            'messages' => $messages,
+                        ];
                     }else{
                         $messages = [
                         'type' => 'text',
                         'text' => "หาไม่เจอ"
+                        ];
+                         $data = [
+                            'replyToken' => $replyToken,
+                            'messages' => [$messages],
                         ];
                     }
                         
                 }elseif($text[0] == "Jarvis" && $text[1] === NULL){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hi", "Hello", "How are you?");
                     $messages = [
-                    'type' => 'text',
-                    'text' => $a[array_rand($a)]
+                        'type' => 'text',
+                        'text' => $a[array_rand($a)]
                     ];
-                }
-                $data = [
-                'replyToken' => $replyToken,
-                'messages' => [$messages],
-                ];
+                    $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
+                    ];
+                }              
                 PushMessage($data);
                 
             }
