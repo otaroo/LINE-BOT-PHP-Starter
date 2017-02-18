@@ -63,7 +63,7 @@ if (!is_null($events['events'])) {
                 }elseif($text[0] == "Jarvis" && $text[1] === "บันทึก" && $UID === "Uf96e29269201978e3c4cdc4bff843be0" ){
                     $messages = [
                     'type' => 'text',
-                    'text' => "บันทึก เรียบร้อยครับ เจ้านาย"
+                    'text' => "บันทึกเรียบร้อยครับ เจ้านาย"
                     ];
                     $data = [
                     'replyToken' => $replyToken,
