@@ -24,7 +24,7 @@ if (!is_null($events['events'])) {
                     $currently = $wea["currently"]["temperature"];
                     $messages = [
                     'type' => 'text',
-                    'text' => $text[0]." ".$currently
+                    'text' => $text[1]." ".$currently
                     ];
                     $data = [
                     'replyToken' => $replyToken,
