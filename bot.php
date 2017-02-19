@@ -28,9 +28,17 @@ if (!is_null($events['events'])) {
                     ];
                 }elseif($text[0] == "Jarvis" && strpos($text[1], 'เพลง') !== false){
                     if(!($text[2] === null)){
-                        $s_youtubr=$text[2];
-                        if(!($text[3] === null)){
-                            $s_youtubr=$text[2]."+".$text[3];
+                        $s_youtubr = "";
+                        if(count($text)>3){
+                            for ($x = 2; $x <= count($text)-1; $x++) {
+                                if($x !=count($text)-1){
+                                    $s_youtubr =$s_youtubr.$text[$x]."+";
+                                }else{
+                                    $s_youtubr =$s_youtubr.$text[$x];
+                                }
+                            }
+                        }else{
+                            $s_youtubr = $text[2];
                         }
                         $messages = GetYoutube($s_youtubr);
                         $data = [
@@ -68,7 +76,7 @@ if (!is_null($events['events'])) {
                     $data = [
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
-                    ];   
+                    ];
                 }elseif($text[0] == "Jarvis" && ( !($text[1] === NULL) || $text[1] === NULL)){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!","ธัมมชโย อยู่ที่ไหน?");
                     $messages = [
@@ -101,8 +109,8 @@ if (!is_null($events['events'])) {
 echo "OK";
 
 function GetLocation($province) {
-    $search = urlencode($province);
-    $url_dataGo = 'http://demo-api.data.go.th/searching/api/dataset/query?dsname=tambon&path=TAMBON&property=CHANGWAT_T&operator=CONTAINS&value='.$search.'&property=AMPHOE_T&operator=CONTAINS&value='.$search.'&limit=100&offset=0';
+    $s_youtubr = urlencode($province);
+    $url_dataGo = 'http://demo-api.data.go.th/searching/api/dataset/query?dsname=tambon&path=TAMBON&property=CHANGWAT_T&operator=CONTAINS&value='.$s_youtubr.'&property=AMPHOE_T&operator=CONTAINS&value='.$s_youtubr.'&limit=100&offset=0';
     $ch_dataGo = curl_init($url_dataGo);
     curl_setopt($ch_dataGo , CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch_dataGo , CURLOPT_SSL_VERIFYPEER, false);
@@ -138,9 +146,9 @@ function GetWeather($location,$province) {
     return $messages ;
 }
 
-function GetYoutube($search_query) {
+function GetYoutube($s_youtubr_query) {
     
-    $url_Yt = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyBjQJjyNUFfev4rznR_TMef0i0bl4TmyCw&q='.$search_query;
+    $url_Yt = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyBjQJjyNUFfev4rznR_TMef0i0bl4TmyCw&q='.$s_youtubr_query;
     $ch_Yt = curl_init($url_Yt);
     curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
@@ -188,5 +196,29 @@ function PushMessage($data){
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
+    if($result){
+        $youtube_data = json_decode($result, true);
+        $message_log = LogMessage($Log);
+    }else{
+        
+    }
     curl_close($ch);
+}
+
+function LogMessage($Log){
+    if(!($Log === null)){
+        $messages = [
+        'type' => 'text',
+        'text' => $Log
+        ];
+        return  $messages;
+    }
+}
+
+
+function LogPush($Log){
+    $data = [
+    'to' => "",
+    'messages' => [$Log],
+    ];
 }
