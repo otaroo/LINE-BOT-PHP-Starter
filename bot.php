@@ -165,8 +165,8 @@ function GetYoutube($s_youtubr_query) {
     'template' => [
     'type' => 'buttons',
     'thumbnailImageUrl' => $image_h,
-    'title' => $title,
-    "text" => ' ',
+    'title' => ' ',
+    "text" => $title,
     "actions" => [
     [
     "type" => "uri",
@@ -194,6 +194,10 @@ function PushMessage($data){
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
     if(!$result){
+        $Log = json_decode($result, true);
+        $message_log = LogMessage($Log["message"]);
+        LogPush($message_log);
+    }else{
         $Log = json_decode($result, true);
         $message_log = LogMessage($Log["message"]);
         LogPush($message_log);
