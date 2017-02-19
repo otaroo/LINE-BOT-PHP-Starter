@@ -26,7 +26,7 @@ if (!is_null($events['events'])) {
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
                     ];
-                }elseif($text[0] == "Jarvis" && strpos($text[1], 'เพลง') !== false){
+                }elseif($text[0] == "Jarvis" && (strpos($text[1], 'เพลง') !== false ||strpos($text[1], 'คลิป') !== false )){
                     if(!($text[2] === null)){
                         $s_youtubr = "";
                         if(count($text)>3){
