@@ -168,7 +168,7 @@ function GetYoutube($s_youtubr_query) {
     'template' => [
     'type' => 'buttons',
     'thumbnailImageUrl' => $image_h,
-    'title' => ' ',
+    'title' => $title,
     "text" => ' ',
     "actions" => [
     [
@@ -196,11 +196,10 @@ function PushMessage($data){
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
-    if($result){
-        $youtube_data = json_decode($result, true);
-        $message_log = LogMessage($Log);
-    }else{
-        
+    if(!$result){
+        $Log = json_decode($result, true);
+        $message_log = LogMessage($Log["message"]);
+        LogPush($message_log);
     }
     curl_close($ch);
 }
@@ -218,7 +217,19 @@ function LogMessage($Log){
 
 function LogPush($Log){
     $data = [
-    'to' => "",
+    'to' => "Uf96e29269201978e3c4cdc4bff843be0",
     'messages' => [$Log],
     ];
+     $access_token = 'Yfp4E1/cS+OUoQOVVHc2/uLctihQ5gHv9o5rPRMLp0drPl0ObyZwI8uYQjm/VozeGloTmKsOnpdNdwmUrJTw91JQX3LJG3bVSpRFe/q++N0p0ZuTsLoksNRK6TBkmR4+KIgNplG7sib3btmH6nYuowdB04t89/1O/w1cDnyilFU=';
+    $url = 'https://api.line.me/v2/bot/message/push';
+    $post = json_encode($data);
+    $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+    curl_close($ch);
 }
