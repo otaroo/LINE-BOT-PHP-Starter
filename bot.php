@@ -159,7 +159,7 @@ function GetYoutube($s_youtubr_query) {
     $title = $youtube_data["items"][0]["snippet"]["title"];
     $image_m= $youtube_data["items"][0]["snippet"]["thumbnails"]["medium"]["url"];
     $image_h= $youtube_data["items"][0]["snippet"]["thumbnails"]["high"]["url"];
-    $messages = [
+    /*$messages = [
     'type' => 'template',
     'altText' => 'template',
     'template' => [
@@ -175,6 +175,35 @@ function GetYoutube($s_youtubr_query) {
     ]
     ]
     ]
+    ];*/
+     $columns=[];
+    for($index = 0 ;$index<=2;$index++){
+        $title=" ";
+        if(strlen($youtube_data["items"][$index]["snippet"]["thumbnails"]["high"]["url"])>60){
+            $title=$youtube_data["items"][$index]["snippet"]["thumbnails"]["high"]["url"];
+        }
+        $columns[$index] = [
+            'thumbnailImageUrl' => $youtube_data["items"][$index]["snippet"]["thumbnails"]["high"]["url"],
+                    'title' => ' ',
+                    "text" => $title,
+                    "actions" => [
+                        [
+                            "type" => "uri",
+                            "label" => "ดูบน Youtube",
+                            "uri" => "https://www.youtube.com/watch?v=".$youtube_data["items"][$index]["id"]["videoId"]
+                        ]
+                    ]
+        ];
+    }
+
+    $messages = [
+        'type' => 'template',
+        'altText' => 'template',
+        'template' => [
+            "type" => "carousel",
+            'columns' => $columns
+
+        ]
     ];
     
     
