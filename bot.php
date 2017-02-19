@@ -40,7 +40,7 @@ if (!is_null($events['events'])) {
                     }else{
                         $messages = [
                         'type' => 'text',
-                        'text' => "หาไม่เจอ"
+                        'text' => "เพลงอะไรล่ะ?"
                         ];
                         $data = [
                         'replyToken' => $replyToken,
@@ -161,7 +161,7 @@ function GetYoutube($search_query) {
     'type' => 'buttons',
     'thumbnailImageUrl' => $image_h,
     'title' => ' ',
-    "text" => $title."...",
+    "text" => ' ',
     "actions" => [
     [
     "type" => "uri",
