@@ -26,7 +26,7 @@ if (!is_null($events['events'])) {
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
                     ];
-                }elseif($text[0] == "Jarvis" && $text[1] === "หาเพลง"){
+                }elseif($text[0] == "Jarvis" && strpos($text[1], 'เพลง') !== false){
                     if(!($text[2] === null)){
                         $s_youtubr=$text[2];
                         if(!($text[3] === null)){
@@ -47,14 +47,14 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];
                     }
-                }elseif($text[0] == "Jarvis" && ($text[1] === "ทำอะไรได้บ้าง"||$text[1] === "ทำไรได้บ้าง")){
+                }elseif($text[0] == "Jarvis" && ( strpos($text[1], 'ทำไรได้') !== false || strpos($text[1], 'ทำอะไรได้') !== false  ) ){
                     $messages_1 = [
                     'type' => 'text',
-                    'text' => "รายงานสภาพอากาศ [Jarvis อากาศ 'ชื่อจังหวัด']"
+                    'text' => "รายงานสภาพอากาศ [Jarvis อากาศ ชื่อจังหวัด]"
                     ];
                     $messages_2 = [
                     'type' => 'text',
-                    'text' => "หาเพลงใน Youtube [Jarvis หาเพลง 'ชื่อเพลง']"
+                    'text' => "หาเพลงใน Youtube [Jarvis หาเพลง ชื่อเพลง]"
                     ];
                     $data = [
                     'replyToken' => $replyToken,
