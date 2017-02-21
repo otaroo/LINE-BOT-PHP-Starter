@@ -105,7 +105,7 @@ if (!is_null($events['events'])) {
             $sunset = date("h:i",$t);*/
          }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
                $location =  $event['message']['latitude'].",".$event['message']['longitude'];
-               $messages = GetWeather($location,$event['message']['title']);
+               $messages = GetWeather($location,"");
                $replyToken = $event['replyToken'];
                $data = [
                     'replyToken' => $replyToken,
