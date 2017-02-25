@@ -60,6 +60,7 @@ if (!is_null($events['events'])) {
                     'type' => 'text',
                     'text' => $a[array_rand($a)]
                     ];
+                    $messages = getDataUser("kik");
                     $data = [
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
@@ -269,7 +270,22 @@ function saveData($text){
         LogPush($message_log);
     }
     $data = json_decode($result, true);
-    echo $data;
     curl_close($ch);
 
+}
+
+function getDataUser($user){
+    $url = 'https://jarvis-e3312.firebaseio.com/data/user.json';
+    $ch_Yt = curl_init($url);
+    curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch_Yt, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($ch_Yt);
+    $data = json_decode($result, true);
+    $phone = $data[$user]["number"][0];
+    $messages = [
+        'type' => 'text',
+        'text' => $phone
+        ];
+    return  $messages;
 }
