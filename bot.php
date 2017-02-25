@@ -263,8 +263,10 @@ function saveData($text){
     //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
     if(!$result){
-     echo   curl_error($ch);
-     echo   curl_errno($ch);
+        $result =   curl_error($ch).curl_errno($ch);
+        $Log = json_decode($result, true);
+        $message_log = LogMessage($Log["message"]);
+        LogPush($message_log);
     }
     $data = json_decode($result, true);
     echo $data;
