@@ -15,7 +15,6 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             $messages=[];
             $data = [];
-            
             if(!($event['message']['text'] === NULL) && strpos($event['message']['text'], 'Jarvis') !== false){
                 $text =explode( ' ', $event['message']['text']);
                 if( $text[0] == "Jarvis" && $text[1] === "อากาศ"){
@@ -54,29 +53,7 @@ if (!is_null($events['events'])) {
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
                         ];
-                    }
-                }elseif($text[0] == "Jarvis" && ( strpos($text[1], 'ทำไรได้') !== false || strpos($text[1], 'ทำอะไรได้') !== false  ) ){
-                    $messages_1 = [
-                    'type' => 'text',
-                    'text' => "รายงานสภาพอากาศ [Jarvis อากาศ ชื่อจังหวัด]"
-                    ];
-                    $messages_2 = [
-                    'type' => 'text',
-                    'text' => "หาเพลงใน Youtube [Jarvis หาเพลง ชื่อเพลง]"
-                    ];
-                    $data = [
-                    'replyToken' => $replyToken,
-                    'messages' => [$messages_1,$messages_2 ],
-                    ];
-                }elseif($text[0] == "Jarvis" && $text[1] === "บันทึก" && $UID === "Uf96e29269201978e3c4cdc4bff843be0" ){
-                    $messages = [
-                    'type' => 'text',
-                    'text' => "บันทึกเรียบร้อยครับ เจ้านาย"
-                    ];
-                    $data = [
-                    'replyToken' => $replyToken,
-                    'messages' => [$messages],
-                    ];
+                    }   
                 }elseif(strpos($text[0], 'Jarvis') !== false && ( !($text[1] === NULL) || $text[1] === NULL)){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!","ธัมมชโย อยู่ที่ไหน?");
                     $messages = [
