@@ -80,6 +80,15 @@ if (!is_null($events['events'])) {
             $sunrise = date("h:i",$t);
             $t = $wea["daily"]["data"][0]["sunsetTime"];
             $sunset = date("h:i",$t);*/
+         }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
+               $location =  $event['message']['latitude'].",".$event['message']['longitude'];
+               $messages = GetWeather($location,"");
+               $replyToken = $event['replyToken'];
+               $data = [
+                    'replyToken' => $replyToken,
+                    'messages' => [$messages],
+              ];
+              PushMessage($data);
         }
     }
 }
