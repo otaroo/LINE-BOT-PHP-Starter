@@ -64,6 +64,7 @@ if (!is_null($events['events'])) {
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
                     ];
+                    saveData($text[1]);
                 }
                 PushMessage($data);
                 
@@ -248,4 +249,25 @@ function LogPush($Log){
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $result = curl_exec($ch);
     curl_close($ch);
+}
+
+function saveData($text){
+    $url = 'https://jarvis-e3312.firebaseio.com/data/message.json';
+    $post = json_encode($text);
+    $headers = array('Content-Type: application/json');
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    //curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    $result = curl_exec($ch);
+    if(!$result){
+     echo   curl_error($ch);
+     echo   curl_errno($ch);
+    }
+    $data = json_decode($result, true);
+    echo $data;
+    curl_close($ch);
+
 }
