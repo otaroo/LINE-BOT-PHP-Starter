@@ -296,3 +296,8 @@ function getDataUser($user){
         ];
     return  $messages;
 }
+
+function getSL($user){
+
+    return  $user;
+}
