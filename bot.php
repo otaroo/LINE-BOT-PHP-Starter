@@ -325,8 +325,8 @@ function setLamp($data){
     $data = json_decode($result, true);
     $netpie_m = $data["message"];
     $messages = [
-    'type' => 'text',
-    'text' => $netpie_m
-    ];
-    return  $messages;
+        'type' => 'text',
+        'text' => $netpie_m
+        ];
+    return $netpie_m;
 }
