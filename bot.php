@@ -63,9 +63,9 @@ if (!is_null($events['events'])) {
                         ];
                     }
                 }elseif($text[0] == "Jarvis" && $UID=="Uf96e29269201978e3c4cdc4bff843be0" ){
-                    if($text[2] == "เปิดไฟ"){
+                    if($text[1] == "เปิดไฟ"){
                         $messages = setLamp("ON");
-                    }else if($text[2] == "ปิดไฟ"){
+                    }else if($text[1] == "ปิดไฟ"){
                         $messages = setLamp("OFF");
                     }
                     $data = [
