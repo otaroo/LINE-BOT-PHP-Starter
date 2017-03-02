@@ -54,22 +54,25 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];
                     }
-                }elseif($text[0] == "Jarvis" && strpos($text[1], 'เบอร์') !== false){      
-                       if(!($text[2] === null)){                    
+                }elseif($text[0] == "Jarvis" && strpos($text[1], 'เบอร์') !== false){
+                    if(!($text[2] === null)){
                         $messages = getDataUser($text[2]);
                         $data = [
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
                         ];
                     }
-                }elseif($text[0] == "Jarvis" && $UID=="Uf96e29269201978e3c4cdc4bff843be0" ){      
-                                   
-                        $messages =setLamp("ON");
-                        $data = [
-                        'replyToken' => $replyToken,
-                        'messages' => [$messages],
-                        ];
-                        
+                }elseif($text[0] == "Jarvis" && $UID=="Uf96e29269201978e3c4cdc4bff843be0" ){
+                    if($text[2] == "เปิดไฟ"){
+                        $messages = setLamp("ON");
+                    }else if($text[2] == "ปิดไฟ"){
+                        $messages = setLamp("OFF");
+                    }
+                    $data = [
+                    'replyToken' => $replyToken,
+                    'messages' => [$messages],
+                    ];
+                    
                 }elseif(strpos($text[0], 'Jarvis') !== false && ( !($text[1] === NULL) || $text[1] === NULL)){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!","ธัมมชโย อยู่ที่ไหน?");
                     $messages = [
@@ -97,15 +100,15 @@ if (!is_null($events['events'])) {
             $sunrise = date("h:i",$t);
             $t = $wea["daily"]["data"][0]["sunsetTime"];
             $sunset = date("h:i",$t);*/
-         }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
-               $location =  $event['message']['latitude'].",".$event['message']['longitude'];
-               $messages = GetWeather($location,"");
-               $replyToken = $event['replyToken'];
-               $data = [
-                    'replyToken' => $replyToken,
-                    'messages' => [$messages],
-              ];
-              PushMessage($data);
+        }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
+            $location =  $event['message']['latitude'].",".$event['message']['longitude'];
+            $messages = GetWeather($location,"");
+            $replyToken = $event['replyToken'];
+            $data = [
+            'replyToken' => $replyToken,
+            'messages' => [$messages],
+            ];
+            PushMessage($data);
         }
     }
 }
@@ -179,34 +182,34 @@ function GetYoutube($s_youtubr_query) {
     ]
     ]
     ];*/
-     $columns=[];
+    $columns=[];
     for($index = 0 ;$index<=2;$index++){
         $title=" ";
         if(strlen($youtube_data["items"][$index]["snippet"]["thumbnails"]["high"]["url"])>60){
             $title=$youtube_data["items"][$index]["snippet"]["thumbnails"]["high"]["url"];
         }
         $columns[$index] = [
-            'thumbnailImageUrl' => $youtube_data["items"][$index]["snippet"]["thumbnails"]["high"]["url"],
-                    'title' => ' ',
-                    "text" => $title,
-                    "actions" => [
-                        [
-                            "type" => "uri",
-                            "label" => "ดูบน Youtube",
-                            "uri" => "https://www.youtube.com/watch?v=".$youtube_data["items"][$index]["id"]["videoId"]
-                        ]
-                    ]
+        'thumbnailImageUrl' => $youtube_data["items"][$index]["snippet"]["thumbnails"]["high"]["url"],
+        'title' => ' ',
+        "text" => $title,
+        "actions" => [
+        [
+        "type" => "uri",
+        "label" => "ดูบน Youtube",
+        "uri" => "https://www.youtube.com/watch?v=".$youtube_data["items"][$index]["id"]["videoId"]
+        ]
+        ]
         ];
     }
-
+    
     $messages = [
-        'type' => 'template',
-        'altText' => 'template',
-        'template' => [
-            "type" => "carousel",
-            'columns' => $columns
-
-        ]
+    'type' => 'template',
+    'altText' => 'template',
+    'template' => [
+    "type" => "carousel",
+    'columns' => $columns
+    
+    ]
     ];
     
     
@@ -253,7 +256,7 @@ function LogPush($Log){
     'to' => "Uf96e29269201978e3c4cdc4bff843be0",
     'messages' => [$Log],
     ];
-     $access_token = 'Yfp4E1/cS+OUoQOVVHc2/uLctihQ5gHv9o5rPRMLp0drPl0ObyZwI8uYQjm/VozeGloTmKsOnpdNdwmUrJTw91JQX3LJG3bVSpRFe/q++N0p0ZuTsLoksNRK6TBkmR4+KIgNplG7sib3btmH6nYuowdB04t89/1O/w1cDnyilFU=';
+    $access_token = 'Yfp4E1/cS+OUoQOVVHc2/uLctihQ5gHv9o5rPRMLp0drPl0ObyZwI8uYQjm/VozeGloTmKsOnpdNdwmUrJTw91JQX3LJG3bVSpRFe/q++N0p0ZuTsLoksNRK6TBkmR4+KIgNplG7sib3btmH6nYuowdB04t89/1O/w1cDnyilFU=';
     $url = 'https://api.line.me/v2/bot/message/push';
     $post = json_encode($data);
     $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
@@ -286,7 +289,7 @@ function saveData($text){
     }
     $data = json_decode($result, true);
     curl_close($ch);
-
+    
 }
 
 function getDataUser($user){
@@ -299,15 +302,15 @@ function getDataUser($user){
     $data = json_decode($result, true);
     $phone = $data[$user]["number"][0];
     $messages = [
-        'type' => 'text',
-        'text' => $phone
-        ];
+    'type' => 'text',
+    'text' => $phone
+    ];
     return  $messages;
 }
 
 function setLamp($data){
-    $username = "n5nsV5bzcxaGuCV"
-    $password = "435J4qZahKuPAQhzD3tpHNpWR"
+    $username = "n5nsV5bzcxaGuCV";
+    $password = "435J4qZahKuPAQhzD3tpHNpWR";
     $payloadName = $data;
     $url = 'https://api.netpie.io/microgear/Jarvis/nodemcu';
     $ch_netpie = curl_init($url);
@@ -316,14 +319,14 @@ function setLamp($data){
     curl_setopt($ch_netpie, CURLOPT_POSTFIELDS, $payloadName);
     curl_setopt($ch_netpie , CURLOPT_CUSTOMREQUEST, "PUT");
     curl_setopt($ch_netpie, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($process, CURLOPT_POSTFIELDS, $payloadName);
+    curl_setopt($ch_netpie, CURLOPT_POSTFIELDS, $payloadName);
     curl_setopt($ch_netpie, CURLOPT_RETURNTRANSFER, 1);
     $result = curl_exec($ch_netpie);
     $data = json_decode($result, true);
     $netpie_m = $data["message"];
     $messages = [
-        'type' => 'text',
-        'text' => $netpie_m
-        ];
+    'type' => 'text',
+    'text' => $netpie_m
+    ];
     return  $messages;
 }
