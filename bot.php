@@ -328,5 +328,5 @@ function setLamp($data){
         'type' => 'text',
         'text' => $netpie_m
         ];
-    return $netpie_m;
+    return $messages;
 }
