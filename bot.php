@@ -318,15 +318,22 @@ function setLamp($data){
     curl_setopt($ch_netpie , CURLOPT_USERPWD, $username . ":" . $password);
     curl_setopt($ch_netpie, CURLOPT_POSTFIELDS, $payloadName);
     curl_setopt($ch_netpie , CURLOPT_CUSTOMREQUEST, "PUT");
-    curl_setopt($ch_netpie, CURLOPT_SSL_VERIFYPEER, true);
+    curl_setopt($ch_netpie, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch_netpie, CURLOPT_POSTFIELDS, $payloadName);
     curl_setopt($ch_netpie, CURLOPT_RETURNTRANSFER, 1);
     $result = curl_exec($ch_netpie);
-    $data = json_decode($result, true);
-    $netpie_m = $data["message"];
+    $netpie_m ="";
+    if(curl_exec($ch_netpie) === false)
+    {
+        $netpie_m = curl_error($ch_netpie);
+    }else{
+        $data = json_decode($result, true);
+        $netpie_m = $data["message"];
+    }
+    
     $messages = [
-        'type' => 'text',
-        'text' => $netpie_m
-        ];
+    'type' => 'text',
+    'text' => $netpie_m
+    ];
     return $messages;
 }
