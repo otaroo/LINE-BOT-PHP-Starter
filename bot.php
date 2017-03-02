@@ -328,7 +328,10 @@ function setLamp($data){
         $netpie_m = curl_error($ch_netpie);
     }else{
         $data = json_decode($result, true);
-        $netpie_m = $data["message"];
+        if($data["message"]=="Success"){
+            $netpie_m = "เรียบร้อย";
+        }
+        
     }
     
     $messages = [
