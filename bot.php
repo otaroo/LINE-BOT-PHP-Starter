@@ -64,10 +64,7 @@ if (!is_null($events['events'])) {
                     }
                 }elseif($text[0] == "Jarvis" && $UID=="Uf96e29269201978e3c4cdc4bff843be0" ){      
                                    
-                        $messages = [
-                        'type' => 'text',
-                        'text' => "ครับ"
-                        ];
+                        $messages =setLamp("ON");
                         $data = [
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
@@ -308,7 +305,25 @@ function getDataUser($user){
     return  $messages;
 }
 
-function getSL($user){
-
-    return  $user;
+function setLamp($data){
+    $username = "n5nsV5bzcxaGuCV"
+    $password = "435J4qZahKuPAQhzD3tpHNpWR"
+    $payloadName = $data;
+    $url = 'https://api.netpie.io/microgear/Jarvis/nodemcu';
+    $ch_netpie = curl_init($url);
+    curl_setopt($ch_netpie, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch_netpie , CURLOPT_USERPWD, $username . ":" . $password);
+    curl_setopt($ch_netpie, CURLOPT_POSTFIELDS, $payloadName);
+    curl_setopt($ch_netpie , CURLOPT_CUSTOMREQUEST, "PUT");
+    curl_setopt($ch_netpie, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($process, CURLOPT_POSTFIELDS, $payloadName);
+    curl_setopt($ch_netpie, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($ch_netpie);
+    $data = json_decode($result, true);
+    $netpie_m = $data["message"];
+    $messages = [
+        'type' => 'text',
+        'text' => $netpie_m
+        ];
+    return  $messages;
 }
