@@ -62,14 +62,6 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];
                     }
-                 }elseif(strpos($text[0], 'บ้าน') !== false){
-                        $search = substr($text[0],3);
-                        $messages = getLocationUser($search,$text[0]);
-                        $data = [
-                        'replyToken' => $replyToken,
-                        'messages' => [$messages],
-                        ];                   
-                   
                 }elseif($text[0] == "Jarvis" && !($UID===null) ){ //&& $UID=="Uf96e29269201978e3c4cdc4bff843be0"
                     if($text[1] == "เปิดไฟ"){
                         $messages = setLamp("ON");
@@ -95,6 +87,14 @@ if (!is_null($events['events'])) {
                 }
                 PushMessage($data);
                 
+             }elseif(strpos($text[0], 'บ้าน') !== false){
+                        $search = substr($text[0],4);
+                        $messages = getLocationUser($search,$text[0]);
+                        $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
+                        ];                   
+                   
             }
             
             
