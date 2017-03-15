@@ -96,7 +96,7 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];                   
                    PushMessage($data);
-            }
+            
               }elseif(strpos($event['message']['text'], 'เบอร์') !== false){
                         $text = $event['message']['text'];
                         $search =  iconv_substr($text,5);
