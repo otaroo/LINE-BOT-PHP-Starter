@@ -88,9 +88,9 @@ if (!is_null($events['events'])) {
                 PushMessage($data);
                 
              }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
-                 
-                        $search = substr($text[0],4);
-                        $messages = getLocationUser($search,$text[0]);
+                        $text = $event['message']['text'];
+                        $search = substr($text,4);
+                        $messages = getLocationUser($search,$text);
                         $data = [
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
