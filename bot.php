@@ -328,8 +328,8 @@ function getLocationUser($user,$location){
     $longitude = $data[$user]["location"]["longitude"];
     $messages = [
     'type' => 'location',
-    'title' => $user,
-    'address' => $location." ".$user,
+    'title' => $location." ".$user,
+    'address' => " ",
     'latitude' =>  $latitude,
     'longitude' => $longitude,
     ];
