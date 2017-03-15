@@ -89,7 +89,7 @@ if (!is_null($events['events'])) {
                 
              }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
                         $text = $event['message']['text'];
-                        $search =  iconv_substr($text,4,"UTF-8");
+                        $search =  iconv_substr($text,4);
                         $messages = getLocationUser($search);
                         $data = [
                         'replyToken' => $replyToken,
