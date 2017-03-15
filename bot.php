@@ -97,6 +97,16 @@ if (!is_null($events['events'])) {
                         ];                   
                    PushMessage($data);
             }
+              }elseif(strpos($event['message']['text'], 'เบอร์') !== false){
+                        $text = $event['message']['text'];
+                        $search =  iconv_substr($text,5);
+                        $messages = getDataUser($search);
+                        $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
+                        ];                   
+                   PushMessage($data);
+            }
 
         }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
             $location =  $event['message']['latitude'].",".$event['message']['longitude'];
