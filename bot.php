@@ -62,6 +62,15 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];
                     }
+                 }elseif($text[0] == "Jarvis" && strpos($text[1], 'บ้าน') !== false){
+                    if(!($text[2] === null)){
+                        $messages = getLocationUser($text[2]);
+                        $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
+                        ];
+                    }
+                   
                 }elseif($text[0] == "Jarvis" && !($UID===null) ){ //&& $UID=="Uf96e29269201978e3c4cdc4bff843be0"
                     if($text[1] == "เปิดไฟ"){
                         $messages = setLamp("ON");
@@ -307,7 +316,25 @@ function getDataUser($user){
     ];
     return  $messages;
 }
-
+function getLocationUser($user){
+    $url = 'https://jarvis-e3312.firebaseio.com/data/user.json';
+    $ch_Yt = curl_init($url);
+    curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch_Yt, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($ch_Yt);
+    $data = json_decode($result, true);
+    $latitude = $data[$user]["location"]["latitude"];
+    $longitude = $data[$user]["location"]["longitude"];
+    $messages = [
+    'type' => 'location',
+    'title' => $user,
+    'address' => $user,
+    'latitude' =>  $latitude,
+    'longitude' => longitude,
+    ];
+    return  $messages;
+}
 function setLamp($data){
     $username = "n5nsV5bzcxaGuCV";
     $password = "435J4qZahKuPAQhzD3tpHNpWR";
