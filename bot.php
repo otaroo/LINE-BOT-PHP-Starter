@@ -15,8 +15,8 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             $messages=[];
             $data = [];
+            $text =explode( ' ', $event['message']['text']);
             if(!($event['message']['text'] === NULL) && strpos($event['message']['text'], 'Jarvis') !== false){
-                $text =explode( ' ', $event['message']['text']);
                 if( $text[0] == "Jarvis" && $text[1] === "อากาศ"){
                     
                     $location = GetLocation($text[2]);
