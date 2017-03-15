@@ -89,7 +89,7 @@ if (!is_null($events['events'])) {
                 
              }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
                         $text = $event['message']['text'];
-                        $search = substr($text,4);
+                        $search =  iconv_substr($text,4,"UTF-8");
                         $messages = getLocationUser($search);
                         $data = [
                         'replyToken' => $replyToken,
@@ -97,18 +97,7 @@ if (!is_null($events['events'])) {
                         ];                   
                    PushMessage($data);
             }
-            
-            
-            
-            /*$summary = $wea["daily"]["data"][0]["summary"];
-            $min = $wea["daily"]["data"][0]["temperatureMin"];
-            $max = $wea["daily"]["data"][0]["temperatureMax"];
-            $t = $wea["daily"]["data"][0]["time"];
-            $time_d = date("d/m/Y",$t);
-            $t = $wea["daily"]["data"][0]["sunriseTime"];
-            $sunrise = date("h:i",$t);
-            $t = $wea["daily"]["data"][0]["sunsetTime"];
-            $sunset = date("h:i",$t);*/
+
         }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
             $location =  $event['message']['latitude'].",".$event['message']['longitude'];
             $messages = GetWeather($location,"");
