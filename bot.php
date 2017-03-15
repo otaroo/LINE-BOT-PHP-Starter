@@ -89,8 +89,8 @@ if (!is_null($events['events'])) {
                 
              }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
                         $text = $event['message']['text'];
-                        $search = substr($text,4);
-                        $messages = getLocationUser("มิ้น",$text);
+                        $search = substr($text,3);
+                        $messages = getLocationUser("มิ้น");
                         $data = [
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
@@ -316,7 +316,7 @@ function getDataUser($user){
     ];
     return  $messages;
 }
-function getLocationUser($user,$location){
+function getLocationUser($user){
     $url = 'https://jarvis-e3312.firebaseio.com/data/user.json';
     $ch_Yt = curl_init($url);
     curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
@@ -328,7 +328,7 @@ function getLocationUser($user,$location){
     $longitude = $data[$user]["location"]["longitude"];
     $messages = [
     'type' => 'location',
-    'title' => $location.$user,
+    'title' => $user,
     'address' => $latitude.",".$longitude,
     'latitude' =>  $latitude,
     'longitude' => $longitude,
