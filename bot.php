@@ -331,7 +331,7 @@ function getLocationUser($user){
     'title' => $user,
     'address' => $user,
     'latitude' =>  $latitude,
-    'longitude' => longitude,
+    'longitude' => $longitude,
     ];
     return  $messages;
 }
