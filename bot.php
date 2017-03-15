@@ -90,7 +90,7 @@ if (!is_null($events['events'])) {
              }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
                         $text = $event['message']['text'];
                         $search = substr($text,3);
-                        $messages = getLocationUser("มิ้น");
+                        $messages = getLocationUser($search);
                         $data = [
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
