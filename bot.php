@@ -94,7 +94,7 @@ if (!is_null($events['events'])) {
                         'replyToken' => $replyToken,
                         'messages' => [$messages],
                         ];                   
-                   
+                   PushMessage($data);
             }
             
             
