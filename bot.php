@@ -63,7 +63,7 @@ if (!is_null($events['events'])) {
                         ];
                     }
                  }elseif(strpos($text[0], 'บ้าน') !== false){
-                        $search = substr($text[0],4);
+                        $search = substr($text[0],3);
                         $messages = getLocationUser($search,$text[0]);
                         $data = [
                         'replyToken' => $replyToken,
