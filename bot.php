@@ -87,10 +87,10 @@ if (!is_null($events['events'])) {
                 }
                 PushMessage($data);
                 
-<<<<<<< HEAD
+
             }
             
-=======
+
              }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
                         $text = $event['message']['text'];
                         $search =  iconv_substr($text,4);
@@ -112,7 +112,6 @@ if (!is_null($events['events'])) {
                    PushMessage($data);
             }
 
->>>>>>> 33ff89e3298beefeda4567da7e1c279c681fa6d9
         }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
             $location =  $event['message']['latitude'].",".$event['message']['longitude'];
             $messages = GetWeather($location,"");
@@ -330,10 +329,11 @@ function getLocationUser($user){
     $data = json_decode($result, true);
     $latitude = $data[$user]["location"]["latitude"];
     $longitude = $data[$user]["location"]["longitude"];
+    $address = $data[$user]["location"]["address"];
     $messages = [
     'type' => 'location',
     'title' => $user,
-    'address' => $latitude.",".$longitude,
+    'address' => $address,
     'latitude' =>  $latitude,
     'longitude' => $longitude,
     ];
