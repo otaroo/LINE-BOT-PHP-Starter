@@ -87,8 +87,32 @@ if (!is_null($events['events'])) {
                 }
                 PushMessage($data);
                 
+<<<<<<< HEAD
             }
             
+=======
+             }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
+                        $text = $event['message']['text'];
+                        $search =  iconv_substr($text,4);
+                        $messages = getLocationUser($search);
+                        $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
+                        ];                   
+                   PushMessage($data);
+            
+              }elseif(strpos($event['message']['text'], 'เบอร์') !== false){
+                        $text = $event['message']['text'];
+                        $search =  iconv_substr($text,5);
+                        $messages = getDataUser($search);
+                        $data = [
+                        'replyToken' => $replyToken,
+                        'messages' => [$messages],
+                        ];                   
+                   PushMessage($data);
+            }
+
+>>>>>>> 33ff89e3298beefeda4567da7e1c279c681fa6d9
         }elseif($event['type'] == 'message' && $event['message']['type'] == 'location'){
             $location =  $event['message']['latitude'].",".$event['message']['longitude'];
             $messages = GetWeather($location,"");
@@ -296,7 +320,25 @@ function getDataUser($user){
     ];
     return  $messages;
 }
-
+function getLocationUser($user){
+    $url = 'https://jarvis-e3312.firebaseio.com/data/user.json';
+    $ch_Yt = curl_init($url);
+    curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch_Yt, CURLOPT_RETURNTRANSFER, 1);
+    $result = curl_exec($ch_Yt);
+    $data = json_decode($result, true);
+    $latitude = $data[$user]["location"]["latitude"];
+    $longitude = $data[$user]["location"]["longitude"];
+    $messages = [
+    'type' => 'location',
+    'title' => $user,
+    'address' => $latitude.",".$longitude,
+    'latitude' =>  $latitude,
+    'longitude' => $longitude,
+    ];
+    return  $messages;
+}
 function setLamp($data){
     $username = "n5nsV5bzcxaGuCV";
     $password = "435J4qZahKuPAQhzD3tpHNpWR";
