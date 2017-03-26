@@ -15,9 +15,9 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             $messages=[];
             $data = [];
-            if(!($event['message']['text'] === NULL) && strpos($event['message']['text'], 'Jarvis') !== false){
+            if(!($event['message']['text'] === NULL) && strpos($event['message']['text'], 'จาวิส') !== false){
                 $text =explode( ' ', $event['message']['text']);
-                if( $text[0] == "Jarvis" && $text[1] === "อากาศ"){
+                if( $text[0] == "จาวิส" && $text[1] === "อากาศ"){
                     
                     $location = GetLocation($text[2]);
                     $messages = GetWeather($location,$text[2]);
@@ -25,7 +25,7 @@ if (!is_null($events['events'])) {
                     'replyToken' => $replyToken,
                     'messages' => [$messages],
                     ];
-                }elseif($text[0] == "Jarvis" && (strpos($text[1], 'เพลง') !== false ||strpos($text[1], 'คลิป') !== false )){
+                }elseif($text[0] == "จาวิส" && (strpos($text[0], 'เพลง') !== false ||strpos($text[0], 'คลิป') !== false )){
                     if(!($text[2] === null)){
                         $s_youtubr = "";
                         if(count($text)>3){
@@ -54,7 +54,7 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];
                     }
-                }elseif($text[0] == "Jarvis" && strpos($text[1], 'เบอร์') !== false){
+                }elseif($text[0] == "จาวิส" && strpos($text[1], 'เบอร์') !== false){
                     if(!($text[2] === null)){
                         $messages = getDataUser($text[2]);
                         $data = [
@@ -62,7 +62,7 @@ if (!is_null($events['events'])) {
                         'messages' => [$messages],
                         ];
                     }
-                }elseif($text[0] == "Jarvis" && !($UID===null) ){ //&& $UID=="Uf96e29269201978e3c4cdc4bff843be0"
+                }elseif($text[0] == "จาวิส" && !($UID===null) ){ //&& $UID=="Uf96e29269201978e3c4cdc4bff843be0"
                     if($text[1] == "เปิดไฟ"){
                         $messages = setLamp("ON");
                     }else if($text[1] == "ปิดไฟ"){
@@ -73,7 +73,7 @@ if (!is_null($events['events'])) {
                     'messages' => [$messages],
                     ];
                     
-                }elseif(strpos($text[0], 'Jarvis') !== false && ( !($text[1] === NULL) || $text[1] === NULL)){
+                }elseif(strpos($text[0], 'จาวิส') !== false && ( !($text[1] === NULL) || $text[1] === NULL)){
                     $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!","ธัมมชโย อยู่ที่ไหน?");
                     $messages = [
                     'type' => 'text',
@@ -87,10 +87,6 @@ if (!is_null($events['events'])) {
                 }
                 PushMessage($data);
                 
-                
-            
-            
-            
         }elseif(strpos($event['message']['text'], 'บ้าน') !== false){
             $text = $event['message']['text'];
             $search =  iconv_substr($text,4);
@@ -283,7 +279,7 @@ function LogPush($Log){
 }
 
 function saveData($text){
-    $url = 'https://jarvis-e3312.firebaseio.com/data/message.json';
+    $url = 'https://จาวิส-e3312.firebaseio.com/data/message.json';
     $post = json_encode($text);
     $headers = array('Content-Type: application/json');
     $ch = curl_init($url);
@@ -305,7 +301,7 @@ function saveData($text){
 }
 
 function getDataUser($user){
-    $url = 'https://jarvis-e3312.firebaseio.com/data/user.json';
+    $url = 'https://จาวิส-e3312.firebaseio.com/data/user.json';
     $ch_Yt = curl_init($url);
     curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
@@ -320,7 +316,7 @@ function getDataUser($user){
     return  $messages;
 }
 function getLocationUser($user){
-    $url = 'https://jarvis-e3312.firebaseio.com/data/user.json';
+    $url = 'https://จาวิส-e3312.firebaseio.com/data/user.json';
     $ch_Yt = curl_init($url);
     curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
@@ -343,7 +339,7 @@ function setLamp($data){
     $username = "n5nsV5bzcxaGuCV";
     $password = "435J4qZahKuPAQhzD3tpHNpWR";
     $payloadName = $data;
-    $url = 'https://api.netpie.io/microgear/Jarvis/nodemcu';
+    $url = 'https://api.netpie.io/microgear/จาวิส/nodemcu';
     $ch_netpie = curl_init($url);
     curl_setopt($ch_netpie, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($ch_netpie , CURLOPT_USERPWD, $username . ":" . $password);
