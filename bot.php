@@ -15,7 +15,7 @@ if (!is_null($events['events'])) {
             $replyToken = $event['replyToken'];
             $messages=[];
             $data = [];
-            if(!($event['message']['text'] === NULL) && strpos($event['message']['text'], 'จาวิส') !== false){
+            if(!($event['message']['text'] === NULL) && strpos($event['message']['text'], 'Jarvis') !== false){
                 $text =explode( ' ', $event['message']['text']);
                 if( $text[0] == "จาวิส" && $text[1] === "อากาศ"){
                     
@@ -74,7 +74,7 @@ if (!is_null($events['events'])) {
                     ];
                     
                 }elseif(strpos($text[0], 'จาวิส') !== false && ( !($text[1] === NULL) || $text[1] === NULL)){
-                    $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!","ธัมมชโย อยู่ที่ไหน?");
+                    $a=array("ว่ามา","สบายดีไหม","ครับผม","พร้อมบริการ","หิว", "Hello!!", "How are you?", "I'm Bot", "ช่วงนี้กำลังยุ่ง", "ขอเวลาพักผ่อนนิดนึง", "ว่างหรอ", "ไม่ใช่เพื่อนเล่น", "ซักวันจะเป็นมนุษย์", "อย่าเกรียน", "มึงเก๋าหรอ!!");
                     $messages = [
                     'type' => 'text',
                     'text' => $a[array_rand($a)]
@@ -279,7 +279,7 @@ function LogPush($Log){
 }
 
 function saveData($text){
-    $url = 'https://จาวิส-e3312.firebaseio.com/data/message.json';
+    $url = 'https://Jarvis-e3312.firebaseio.com/data/message.json';
     $post = json_encode($text);
     $headers = array('Content-Type: application/json');
     $ch = curl_init($url);
@@ -301,7 +301,7 @@ function saveData($text){
 }
 
 function getDataUser($user){
-    $url = 'https://จาวิส-e3312.firebaseio.com/data/user.json';
+    $url = 'https://Jarvis-e3312.firebaseio.com/data/user.json';
     $ch_Yt = curl_init($url);
     curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
@@ -316,7 +316,7 @@ function getDataUser($user){
     return  $messages;
 }
 function getLocationUser($user){
-    $url = 'https://จาวิส-e3312.firebaseio.com/data/user.json';
+    $url = 'https://Jarvis-e3312.firebaseio.com/data/user.json';
     $ch_Yt = curl_init($url);
     curl_setopt($ch_Yt, CURLOPT_CUSTOMREQUEST, "GET");
     curl_setopt($ch_Yt, CURLOPT_SSL_VERIFYPEER, false);
@@ -339,7 +339,7 @@ function setLamp($data){
     $username = "n5nsV5bzcxaGuCV";
     $password = "435J4qZahKuPAQhzD3tpHNpWR";
     $payloadName = $data;
-    $url = 'https://api.netpie.io/microgear/จาวิส/nodemcu';
+    $url = 'https://api.netpie.io/microgear/Jarvis/nodemcu';
     $ch_netpie = curl_init($url);
     curl_setopt($ch_netpie, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($ch_netpie , CURLOPT_USERPWD, $username . ":" . $password);
