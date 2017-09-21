@@ -118,10 +118,11 @@ if (!is_null($events['events'])) {
         ];
         PushMessage($data);
     }elseif($event['type'] == 'message' && $event['message']['type'] == 'image'){
-        //$imageid =  $event['message']['id'];
+        $imageid =  $event['message']['id'];
+        $replyToken = $event['replyToken'];
         $messages = [
             'type' => 'text',
-            'text' => 'imageid'
+            'text' => $imageid
             ];
             $data = [
             'replyToken' => $replyToken,
