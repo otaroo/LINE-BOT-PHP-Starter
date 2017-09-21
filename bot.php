@@ -119,6 +119,7 @@ if (!is_null($events['events'])) {
         PushMessage($data);
     }elseif($event['type'] == 'message' && $event['message']['type'] == 'image'){
         $imageid =  $event['message']['id'];
+        GetContent($imageid);
         $replyToken = $event['replyToken'];
         $messages = [
             'type' => 'text',
@@ -136,7 +137,29 @@ echo "OK";
 
 function GetContent($messageId){
     $Id = urlencode($messageId);
-    $url_dataGo = 'https://api.line.me/v2/bot/message/'.$s_youtubr.'/content';
+    $url_dataGo = 'https://api.line.me/v2/bot/message/'.$Id.'/content';
+    $output_filename = $Id;
+    $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
+        $host = "https://api.line.me/v2/bot/message/'.$Id.'/content";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $host);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, false);
+        curl_setopt($ch, CURLOPT_REFERER, "https://api.line.me");
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+        curl_close($ch);
+    
+        print_r($result); // prints the contents of the collected file before writing..
+    
+    
+        // the following lines write the contents to a file in the same directory (provided permissions etc)
+        $fp = fopen($output_filename, 'w');
+        fwrite($fp, $result);
+        fclose($fp);
 }
 function GetLocation($province) {
     $s_youtubr = urlencode($province);
