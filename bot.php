@@ -138,7 +138,7 @@ echo "OK";
 function GetContent($messageId){
     $Id = urlencode($messageId);
     $url_dataGo = 'https://api.line.me/v2/bot/message/'.$Id.'/content';
-    $output_filename = $Id;
+    $output_filename = $Id.'.jpg';
     $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $access_token);
         $host = "https://api.line.me/v2/bot/message/'.$Id.'/content";
         $ch = curl_init();
