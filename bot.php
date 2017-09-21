@@ -117,11 +117,26 @@ if (!is_null($events['events'])) {
         'messages' => [$messages],
         ];
         PushMessage($data);
+    }elseif($event['type'] == 'message' && $event['message']['type'] == 'image'){
+        $imageid =  $event['message']['id'];
+        $messages = [
+            'type' => 'text',
+            'text' => $imageid
+            ];
+            $data = [
+            'replyToken' => $replyToken,
+            'messages' => [$messages],
+            ];
+            PushMessage($data);
     }
 }
 }
 echo "OK";
 
+function GetContent($messageId){
+    $Id = urlencode($messageId);
+    $url_dataGo = 'https://api.line.me/v2/bot/message/'.$s_youtubr.'/content';
+}
 function GetLocation($province) {
     $s_youtubr = urlencode($province);
     $url_dataGo = 'http://demo-api.data.go.th/searching/api/dataset/query?dsname=tambon&path=TAMBON&property=CHANGWAT_T&operator=CONTAINS&value='.$s_youtubr.'&property=AMPHOE_T&operator=CONTAINS&value='.$s_youtubr.'&limit=100&offset=0';
